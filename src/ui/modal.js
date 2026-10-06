@@ -442,42 +442,61 @@ export class Modal {
     if (el) el.innerHTML = `<div class="gys-error">${msg}</div>`;
   }
 
-  // ── Analysis (stub — measurement engine fills this in step 5) ────────────
+  // ── Analysis ──────────────────────────────────────────────────────────────
 
   async _runAnalysis() {
     this._goTo('processing');
 
     try {
-      // Dynamic imports so TF.js only loads when needed
-      const { detectPose }    = await import('../core/pose-detector.js');
+      const { detectPose }     = await import('../core/pose-detector.js');
       const { toMeasurements } = await import('../core/measurement.js');
       const { recommend }      = await import('../core/size-matcher.js');
 
-      this._setProcessingMsg('Detecting body pose…');
-      const frontPose = await detectPose(this._data.frontPhoto.canvas);
-      const sidePose  = await detectPose(this._data.sidePhoto.canvas);
+      const onProgress = msg => this._setProcessingMsg(msg);
 
-      this._setProcessingMsg('Calculating measurements…');
-      const measurements = toMeasurements(
-        frontPose, sidePose, this._data.heightCm
+      // Detect front pose (model downloads here on first use)
+      const frontPose = await detectPose(
+        this._data.frontPhoto.canvas,
+        { isSide: false, onProgress }
       );
 
-      this._setProcessingMsg('Matching to size chart…');
-      const result = recommend(measurements, 'women', this._sizeChart?.sizes || null);
+      this._setProcessingMsg('Detecting side pose…');
+      const sidePose = await detectPose(
+        this._data.sidePhoto.canvas,
+        { isSide: true, onProgress: () => {} }
+      );
+
+      this._setProcessingMsg('Calculating your measurements…');
+      const measurements = toMeasurements(frontPose, sidePose, this._data.heightCm);
+
+      this._setProcessingMsg('Finding your size…');
+      const chart  = this._sizeChart;
+      const result = recommend(
+        measurements,
+        'women',
+        chart?.sizes   || null,
+        'tops',
+        chart?.chartType || 'body'
+      );
 
       this._data.measurements = measurements;
       this._data.result       = result;
 
-      // Discard photo data immediately
+      // Privacy: discard pixel data immediately after analysis
       this._data.frontPhoto = null;
       this._data.sidePhoto  = null;
+
+      // Save measurements to profile
+      import('../core/profile.js').then(({ saveProfile }) =>
+        saveProfile(measurements)
+      ).catch(() => {});
 
       this._showResult(result, measurements);
       if (this._onResult) this._onResult(result);
 
     } catch (err) {
       console.error('[GetYourSize]', err);
-      this._showResultError();
+      this._showResultError(err.message);
     }
   }
 
@@ -532,12 +551,12 @@ export class Modal {
     });
   }
 
-  _showResultError() {
+  _showResultError(message = '') {
+    const hint = message || 'Could not analyse your photos.';
     const content = this._shadow.getElementById('gys-result-content');
     content.innerHTML = `
-      <div class="gys-error">
-        Could not analyse your photos. Try the quiz instead, or retake clearer photos.
-      </div>
+      <h2 class="gys-title" style="margin-bottom:12px">Something went wrong</h2>
+      <div class="gys-error">${hint}<br><br>Tips: stand 2 m back, full body in frame, bright even lighting.</div>
       <button class="gys-btn gys-btn-primary" id="gys-err-retry">Retake photos</button>
       <button class="gys-btn gys-btn-secondary" id="gys-err-quiz">Use quiz instead</button>
     `;
