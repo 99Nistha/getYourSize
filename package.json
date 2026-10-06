@@ -2,6 +2,7 @@
   "name": "getyoursize",
   "version": "0.1.0",
   "description": "Universal size-recommendation widget for fashion brands",
+  "type": "module",
   "scripts": {
     "dev": "vite --open /demo/html-table-chart.html",
     "build": "vite build",
