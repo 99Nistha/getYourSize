@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --open /demo/html-table-chart.html",
-    "build": "vite build",
+    "build": "vite build && cp dist/getyoursize.js extension/getyoursize.js",
     "test": "node tests/run-tests.js"
   },
   "devDependencies": {
