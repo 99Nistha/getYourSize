@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kaveri Studio — Lehenga Set (custom layout, manual button placement)</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Palatino Linotype', Palatino, Georgia, serif; background: #fdf6ee; color: #2c1810; }
+
+    .topbar { background: #8b2252; color: #fdf6ee; padding: 14px 28px; display: flex; align-items: center; justify-content: space-between; }
+    .brand  { font-size: 22px; letter-spacing: 3px; }
+    .nav    { display: flex; gap: 24px; font-size: 12px; letter-spacing: 1.5px; }
+
+    .page { max-width: 1100px; margin: 0 auto; padding: 48px 24px; display: grid; grid-template-columns: 55% 1fr; gap: 48px; }
+    @media (max-width: 720px) { .page { grid-template-columns: 1fr; } }
+
+    /* Gallery */
+    .gallery { display: grid; grid-template-columns: 80px 1fr; gap: 12px; }
+    .thumbs  { display: flex; flex-direction: column; gap: 10px; }
+    .thumb   { background: #f0e4d0; border-radius: 8px; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 28px; cursor: pointer; }
+    .main-img{ background: #f0e4d0; border-radius: 12px; aspect-ratio: 3/4; display: flex; align-items: center; justify-content: center; font-size: 100px; }
+
+    /* Details */
+    .sub    { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #9a6054; margin-bottom: 10px; }
+    h1      { font-size: 30px; font-weight: 400; line-height: 1.2; margin-bottom: 4px; }
+    .fabric { font-size: 13px; color: #9a6054; margin-bottom: 14px; font-style: italic; }
+    .price  { font-size: 24px; color: #8b2252; margin-bottom: 20px; }
+
+    /* Custom size selector — non-standard markup (tests the button injector's fallback) */
+    .size-heading { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: #888; margin-bottom: 10px; }
+    .size-pills   { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+    .sp {
+      padding: 8px 20px;
+      border: 1px solid #d4b090;
+      border-radius: 24px;
+      font-size: 14px;
+      cursor: pointer;
+      background: transparent;
+      font-family: inherit;
+      transition: background .15s, color .15s;
+    }
+    .sp:hover, .sp.active { background: #8b2252; color: #fff; border-color: #8b2252; }
+    .sp.soldout { opacity: 0.3; cursor: not-allowed; text-decoration: line-through; }
+
+    /* Explicit GetYourSize placeholder */
+    #getyoursize-btn { margin: 6px 0 18px; }
+
+    .wish-row { display: flex; gap: 10px; }
+    .add-btn  { flex: 1; padding: 15px; background: #8b2252; color: #fdf6ee; border: none; font-size: 16px; letter-spacing: 0.5px; cursor: pointer; font-family: inherit; border-radius: 4px; }
+    .wish-btn { padding: 15px 18px; border: 1px solid #d4b090; background: transparent; cursor: pointer; font-size: 18px; border-radius: 4px; }
+
+    /* Sizing guide — structured as a definition list, not a table */
+    .sizing-section { margin-top: 32px; }
+    .sizing-section h3 { font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: #888; margin-bottom: 14px; font-weight: 400; }
+    .sizing-dl { display: grid; grid-template-columns: auto 1fr; gap: 0; border: 1px solid #e8d5b8; border-radius: 8px; overflow: hidden; font-size: 13px; }
+    .sizing-dl dt { background: #f7ede0; padding: 9px 16px; font-weight: 600; border-bottom: 1px solid #e8d5b8; }
+    .sizing-dl dd { background: #fff; padding: 9px 16px; border-bottom: 1px solid #e8d5b8; }
+    .sizing-dl dt:last-of-type, .sizing-dl dd:last-of-type { border-bottom: none; }
+
+    .sizing-note { font-size: 12px; color: #aaa; margin-top: 8px; font-family: -apple-system, sans-serif; }
+  </style>
+</head>
+<body>
+
+<nav class="topbar">
+  <div class="brand">KAVERI STUDIO</div>
+  <div class="nav"><span>Bridal</span><span>Festive</span><span>Pret</span><span>Contact</span></div>
+</nav>
+
+<div class="page">
+  <!-- Gallery -->
+  <div class="gallery">
+    <div class="thumbs">
+      <div class="thumb">🌸</div>
+      <div class="thumb">✨</div>
+      <div class="thumb">🎀</div>
+    </div>
+    <div class="main-img">👘</div>
+  </div>
+
+  <!-- Details -->
+  <div>
+    <div class="sub">Bridal Collection 2026</div>
+    <h1>Rose Garden<br>Lehenga Set</h1>
+    <div class="fabric">Pure Georgette · Hand-embroidered</div>
+    <div class="price">₹18,500</div>
+
+    <!-- Non-standard size selector (pill buttons, no standard class names) -->
+    <div class="size-heading">Select Your Size</div>
+    <div class="size-pills">
+      <button class="sp soldout">XS</button>
+      <button class="sp">S</button>
+      <button class="sp active">M</button>
+      <button class="sp">L</button>
+      <button class="sp">XL</button>
+    </div>
+
+    <!-- Explicit placeholder: brand placed the button here -->
+    <div id="getyoursize-btn"></div>
+
+    <div class="wish-row">
+      <button class="add-btn">Add to Cart</button>
+      <button class="wish-btn">♡</button>
+    </div>
+
+    <!-- Sizing guide as definition list (non-table format) -->
+    <div class="sizing-section">
+      <h3>Sizing Guide — To Fit Measurements (inches)</h3>
+      <dl class="sizing-dl">
+        <dt>S</dt>  <dd>Bust 33–34 · Waist 27–28 · Hips 35–36</dd>
+        <dt>M</dt>  <dd>Bust 35–36 · Waist 29–30 · Hips 37–38</dd>
+        <dt>L</dt>  <dd>Bust 37–38 · Waist 31–33 · Hips 39–41</dd>
+        <dt>XL</dt> <dd>Bust 39–41 · Waist 33–36 · Hips 41–44</dd>
+      </dl>
+      <p class="sizing-note">Measurements are "to fit" body measurements in inches. Custom stitching available.</p>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="/src/index.js"></script>
+</body>
+</html>

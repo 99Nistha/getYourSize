@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rani & Co — Silk Kurti (image size chart)</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Georgia, 'Times New Roman', serif; background: #faf7f4; color: #2a1a0e; }
+
+    .topbar { background: #2a1a0e; color: #f5e6d0; padding: 16px 28px; display: flex; align-items: center; justify-content: space-between; }
+    .brand  { font-size: 20px; letter-spacing: 2px; text-transform: uppercase; }
+    .nav    { display: flex; gap: 28px; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; }
+
+    .page { max-width: 1080px; margin: 0 auto; padding: 44px 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 52px; }
+    @media (max-width: 720px) { .page { grid-template-columns: 1fr; } }
+
+    .product-img { background: #ede0ce; border-radius: 12px; aspect-ratio: 3/4; display: flex; align-items: center; justify-content: center; font-size: 80px; }
+
+    .tag    { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: #9a6a3a; margin-bottom: 12px; }
+    h1      { font-size: 28px; font-weight: 400; line-height: 1.2; margin-bottom: 8px; }
+    .price  { font-size: 20px; color: #9a6a3a; margin-bottom: 20px; }
+
+    .label  { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: #888; margin-bottom: 8px; }
+    .color-row { display: flex; gap: 10px; margin-bottom: 20px; }
+    .swatch { width: 28px; height: 28px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; }
+    .swatch.active { border-color: #2a1a0e; }
+
+    .size-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
+    .sz { padding: 9px 18px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; cursor: pointer; background: #fff; font-family: inherit; }
+    .sz:hover, .sz.sel { border-color: #9a6a3a; color: #9a6a3a; background: #fdf5ec; }
+
+    .add-btn { margin-top: 22px; width: 100%; padding: 15px; background: #2a1a0e; color: #f5e6d0; border: none; font-size: 15px; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; font-family: inherit; }
+
+    .section { margin-top: 36px; }
+    .section h2 { font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 14px; }
+
+    /* Fake size chart image — rendered as an HTML table styled to look like an image scan */
+    .chart-img-wrap {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #fff;
+      padding: 16px;
+    }
+    .chart-img-inner { width: 100%; background: #fffdf8; border: 1px solid #e8dcc8; }
+    .chart-img-inner table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .chart-img-inner th { background: #2a1a0e; color: #f5e6d0; padding: 8px 12px; text-align: center; font-size: 11px; }
+    .chart-img-inner td { padding: 7px 12px; text-align: center; border-bottom: 1px solid #ede5d5; }
+    .chart-img-inner .sz-lbl { font-weight: 700; }
+    .img-caption { font-size: 11px; color: #aaa; margin-top: 6px; font-family: -apple-system, sans-serif; }
+
+    .note { font-size: 12px; color: #999; margin-top: 16px; font-family: -apple-system, sans-serif; line-height: 1.5; }
+  </style>
+</head>
+<body>
+
+<nav class="topbar">
+  <div class="brand">Rani & Co</div>
+  <div class="nav"><span>Collections</span><span>Kurtas</span><span>Sarees</span></div>
+</nav>
+
+<div class="page">
+  <div class="product-img">🥻</div>
+
+  <div>
+    <div class="tag">Festive Edit</div>
+    <h1>Embroidered Silk Kurti</h1>
+    <div class="price">₹4,200</div>
+
+    <div class="label">Colour — Ivory Gold</div>
+    <div class="color-row">
+      <div class="swatch active" style="background:#d4af70"></div>
+      <div class="swatch" style="background:#8b1a1a"></div>
+      <div class="swatch" style="background:#1a3a5c"></div>
+    </div>
+
+    <div class="label">Size</div>
+    <div class="size-row">
+      <button class="sz">S</button>
+      <button class="sz sel">M</button>
+      <button class="sz">L</button>
+      <button class="sz">XL</button>
+    </div>
+
+    <!-- GetYourSize injects below the size row -->
+
+    <button class="add-btn">Add to Cart</button>
+
+    <div class="section">
+      <h2>Size Chart</h2>
+      <!-- This is styled to look like an image-based size chart (OCR target) -->
+      <div class="chart-img-wrap">
+        <div class="chart-img-inner">
+          <table>
+            <thead>
+              <tr>
+                <th>SIZE</th>
+                <th>TO FIT CHEST (in)</th>
+                <th>TO FIT WAIST (in)</th>
+                <th>TO FIT HIP (in)</th>
+                <th>GARMENT LENGTH (in)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="sz-lbl">S</td>  <td>33 – 34</td><td>27 – 28</td><td>35 – 36</td><td>42</td></tr>
+              <tr><td class="sz-lbl">M</td>  <td>35 – 36</td><td>29 – 30</td><td>37 – 38</td><td>43</td></tr>
+              <tr><td class="sz-lbl">L</td>  <td>37 – 38</td><td>31 – 32</td><td>39 – 40</td><td>44</td></tr>
+              <tr><td class="sz-lbl">XL</td> <td>39 – 40</td><td>33 – 34</td><td>41 – 42</td><td>45</td></tr>
+              <tr><td class="sz-lbl">XXL</td><td>41 – 43</td><td>35 – 37</td><td>43 – 45</td><td>46</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="img-caption">Size chart image · measurements in inches · "to fit" body measurements</p>
+      </div>
+      <p class="note">
+        Sizes refer to body (to-fit) measurements in inches.<br>
+        1 inch = 2.54 cm. When between sizes, choose the larger size.
+      </p>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="/src/index.js"></script>
+</body>
+</html>

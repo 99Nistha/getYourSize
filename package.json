@@ -1,0 +1,13 @@
+{
+  "name": "getyoursize",
+  "version": "0.1.0",
+  "description": "Universal size-recommendation widget for fashion brands",
+  "scripts": {
+    "dev": "vite --open /demo/html-table-chart.html",
+    "build": "vite build",
+    "test": "node tests/run-tests.js"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0"
+  }
+}
